@@ -1,0 +1,34 @@
+GET http://localhost:5000/laporan
+
+###
+
+GET http://localhost:5000/laporan/6305cf04990b5822ba7091e0
+
+###
+
+POST http://localhost:5000/laporan
+Content-Type: application/json
+
+{
+    "id_user" : "3",
+    "nama_user" : "rraar",
+    "tanggal_laporan" : "2022-08-27",
+    "isi_laporan" : "whatever"
+}
+
+###
+
+PATCH http://localhost:5000/laporan/6305cf04990b5822ba7091e0
+Content-Type: application/json
+
+{
+    "id_user" : "999",
+    "nama_user" : "999",
+    "tanggal_laporan" : "2022-08-28",
+    "isi_laporan" : "whatever"
+}
+
+###
+
+DELETE http://localhost:5000/laporan/6305cf04990b5822ba7091e0
+Content-Type: application/json
