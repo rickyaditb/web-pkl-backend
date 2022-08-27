@@ -32,3 +32,22 @@ Content-Type: application/json
 
 DELETE http://localhost:5000/laporan/6305cf04990b5822ba7091e0
 Content-Type: application/json
+
+
+###
+GET http://localhost:5000/presensi
+
+###
+POST http://localhost:5000/presensi
+Content-Type: application/json
+
+{
+    "id_user" : "3",
+    "nama_user" : "rraar",
+    "waktu_absensi" : "2022-08-27",
+    "keterangan" : "Hadir"
+}
+
+###
+DELETE http://localhost:5000/presensi/6309d1bd4c6be65c5f1babe6
+Content-Type: application/json

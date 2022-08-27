@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors"; 
 import LaporanRoute from "./routes/LaporanRoute.js";
+import PresensiRoute from "./routes/PresensiRoute.js"
 
 const app = express();
 mongoose.connect('mongodb+srv://ricky2:m4r10br0s@cluster0.uekxa.mongodb.net/pkl?retryWrites=true&w=majority',{
@@ -16,5 +17,6 @@ app.use(cors());
 app.use(express.json());
 
 app.use(LaporanRoute);
+app.use(PresensiRoute);
 
 app.listen(5000, ()=> console.log("Server Berjalan"));
