@@ -34,7 +34,7 @@ DELETE http://localhost:5000/laporan/6305cf04990b5822ba7091e0
 Content-Type: application/json
 
 
-###
+### PRESENSI
 GET http://localhost:5000/presensi
 
 ###
@@ -49,5 +49,30 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/presensi/6309d1bd4c6be65c5f1babe6
+DELETE http://localhost:5000/presensi/6309d263e3eca68cee035385
+Content-Type: application/json
+
+
+### USER
+GET http://localhost:5000/user
+
+###
+POST http://localhost:5000/user
+Content-Type: application/json
+
+{
+    "email" : "ricky@ricky.com",
+    "nama" : "Ricky Aditya Bagaskara",
+    "asal_instansi" : "Universitas Pakuan",
+    "role" : "user",
+    "tanggal_mulai" : "2022-08-27",
+    "tanggal_selesai" : "2022-08-29",
+    "tanggal_selesai" : "2022-08-29",
+    "password" : "123",
+    "confPassword" : "123",
+    "token" : "true"
+}
+
+###
+DELETE http://localhost:5000/user/630b0efbb03e238b41a99e84
 Content-Type: application/json
