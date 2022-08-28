@@ -49,7 +49,7 @@ export const loginUser = async (req, res) => {
             'email': req.body.email
         })
         const match = await bcrypt.compare(req.body.password, user.password);
-        if (!match) return res.status(400).json({ msg: "Password Salah" });
+        if (!match) return res.status(400).json({ message: "Password Salah" });
         const userId = user.id;
         const nama = user.nama;
         const email = user.email;
