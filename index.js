@@ -4,9 +4,11 @@ import cors from "cors";
 import LaporanRoute from "./routes/LaporanRoute.js";
 import PresensiRoute from "./routes/PresensiRoute.js"
 import UserRoute from "./routes/UserRoute.js"
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
-mongoose.connect('mongodb+srv://ricky2:m4r10br0s@cluster0.uekxa.mongodb.net/pkl?retryWrites=true&w=majority',{
+mongoose.connect(process.env.MONGO_CRED,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
