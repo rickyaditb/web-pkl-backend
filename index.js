@@ -2,9 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors"; 
 import LaporanRoute from "./routes/LaporanRoute.js";
-import PresensiRoute from "./routes/PresensiRoute.js"
-import UserRoute from "./routes/UserRoute.js"
+import PresensiRoute from "./routes/PresensiRoute.js";
+import UserRoute from "./routes/UserRoute.js";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
@@ -17,6 +18,7 @@ db.on('error', (error) => console.log(error));
 db.once('open', () => console.log('Database Connected'));
 
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(LaporanRoute);

@@ -56,12 +56,16 @@ Content-Type: application/json
 ### USER
 GET http://localhost:5000/user
 
+### USER
+GET http://localhost:5000/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjE2NzY2NjEsImV4cCI6MTY2MTY3NjY5MX0.gTeVuE7QUtDrOcPqWi_66VyfBHHfs--2z2CRsBXNp9M
+
 ###
 POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-    "email" : "ricky@ricky.com",
+    "email" : "rick2y@ricky.com",
     "nama" : "Ricky Aditya Bagaskara",
     "asal_instansi" : "Universitas Pakuan",
     "role" : "user",
@@ -69,10 +73,29 @@ Content-Type: application/json
     "tanggal_selesai" : "2022-08-29",
     "tanggal_selesai" : "2022-08-29",
     "password" : "123",
-    "confPassword" : "123",
-    "token" : "true"
+    "confPassword" : "123"
 }
 
 ###
-DELETE http://localhost:5000/user/630b0efbb03e238b41a99e84
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "ricky@ricky.com",
+    "password": "123"
+}
+
+###
+GET http://localhost:5000/token
+
+###
+DELETE http://localhost:5000/logout
+
+
+
+
+
+
+###
+DELETE http://localhost:5000/user/630b2d15a3ad70248819a6a8
 Content-Type: application/json

@@ -1,9 +1,10 @@
 import User from "../models/UserModel.js";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const getUser = async (req, res) => {
     try {
-        const user = await User.find();
+        const user = await User.find().select(['_id', 'email', 'nama']);
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -11,7 +12,13 @@ export const getUser = async (req, res) => {
 }
 
 export const registerUser = async (req, res) => {
-    const { email, nama, asal_instansi, role, tanggal_mulai, tanggal_selesai, password, confPassword, token } = req.body;
+    const { email, nama, asal_instansi, role, tanggal_mulai, tanggal_selesai, password, confPassword } = req.body;
+
+    const cekUser = await User.findOne({
+        'email': req.body.email
+    })
+
+    if(cekUser) return res.status(400).json({ message: "Email yang sudah anda pakai sudah terdaftar!" });
 
     if (password !== confPassword) return res.status(400).json({ message: "Password dan Konfirmasi Password Tidak Sesuai" });
 
@@ -26,7 +33,6 @@ export const registerUser = async (req, res) => {
         tanggal_mulai: tanggal_mulai,
         tanggal_selesai: tanggal_selesai,
         password: hashPassword,
-        token: token
     })
 
     try {
@@ -39,21 +45,32 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
     try {
-        const user = await User.findAll({
-            where: {
-                email: req.body.email
-            }
+        const user = await User.findOne({
+            'email': req.body.email
         })
-    } catch (error) {
-        res.status(404).json({ message: error.message })
-    }
+        const match = await bcrypt.compare(req.body.password, user.password);
+        if (!match) return res.status(400).json({ msg: "Password Salah" });
+        const userId = user.id;
+        const nama = user.nama;
+        const email = user.email;
+        const accessToken = jwt.sign({ userId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: '30s'
+        });
+        const refreshToken = jwt.sign({ userId, nama, email }, process.env.REFRESH_TOKEN_SECRET, {
+            expiresIn: '1d'
+        });
 
-    const user = new User(req.body);
-    try {
-        const inserteduser = await user.save();
-        res.status(201).json(inserteduser);
+        await User.updateOne({_id: userId}, {token: refreshToken});
+        console.log(refreshToken)
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000
+        });
+        res.json({ accessToken });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.log(error)
+        res.status(404).json({ message: "Email Tidak Ditemukan" })
     }
 }
 
@@ -64,4 +81,17 @@ export const deleteUser = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
+}
+
+export const logoutUser = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if(!refreshToken) return res.sendStatus(204);
+    const user = await User.find({
+        'token': refreshToken
+    });
+    if(!user) return res.sendStatus(204);
+    const userId = user.id;
+    await User.updateOne({_id: userId}, {token: null});
+    res.clearCookie('refreshToken');
+    return res.sendStatus(200);
 }
