@@ -38,6 +38,9 @@ Content-Type: application/json
 GET http://localhost:5000/presensi
 
 ###
+GET http://localhost:5000/presensi_today/630b5ee09bcc417e95c36864
+
+###
 POST http://localhost:5000/presensi
 Content-Type: application/json
 
@@ -58,7 +61,7 @@ GET http://localhost:5000/user
 
 ### USER
 GET http://localhost:5000/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjE2NzY2NjEsImV4cCI6MTY2MTY3NjY5MX0.gTeVuE7QUtDrOcPqWi_66VyfBHHfs--2z2CRsBXNp9M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzBiNWVlMDliY2M0MTdlOTVjMzY4NjQiLCJuYW1hIjoiMTIzIiwiZW1haWwiOiIxMjMiLCJpYXQiOjE2NjE4NTk3ODgsImV4cCI6MTY2MTg1OTgxOH0.rQVfA-QYq0Cfw1Z_fk2aBFnrjQrL6Su2JBFUj3H73LY
 
 ###
 POST http://localhost:5000/user
@@ -81,7 +84,7 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "ricky@ricky.com",
+    "email": "123",
     "password": "123"
 }
 

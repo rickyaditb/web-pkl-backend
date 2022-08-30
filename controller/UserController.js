@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const getUser = async (req, res) => {
     try {
-        const user = await User.find().select(['_id', 'email', 'nama']);
+        const user = await User.find().select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai']);
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -61,10 +61,10 @@ export const loginUser = async (req, res) => {
         });
 
         await User.updateOne({_id: userId}, {token: refreshToken});
-        console.log(refreshToken)
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
+            secure: false,
             maxAge: 24 * 60 * 60 * 1000
         });
         res.json({ accessToken });
