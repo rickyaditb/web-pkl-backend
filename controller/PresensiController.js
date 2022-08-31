@@ -20,7 +20,7 @@ export const getPresensi = async (req, res) => {
 export const getPresensiToday = async (req, res) => {
     try {
         const presensi = await Presensi.findOne({
-            'id_user': req.body.id_user,
+            'id_user': req.params.id,
             'waktu_absensi': {
                 $gte: start,
                 $lt: end

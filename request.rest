@@ -38,7 +38,7 @@ Content-Type: application/json
 GET http://localhost:5000/presensi
 
 ###
-GET http://localhost:5000/presensi_today/630b5ee09bcc417e95c36864
+GET http://localhost:5000/presensi_today/630f6f5d6b70943b9b7dd7ce
 
 ###
 POST http://localhost:5000/presensi
@@ -52,7 +52,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/presensi/6309d263e3eca68cee035385
+DELETE http://localhost:5000/presensi/630f6f5d6b70943b9b7dd7ce
 Content-Type: application/json
 
 
