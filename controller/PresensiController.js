@@ -6,11 +6,20 @@ start.setHours(0, 0, 0, 0);
 const end = new Date();
 end.setHours(23, 59, 59, 999);
 
-
-
-export const getPresensi = async (req, res) => {
+export const getAllPresensi = async (req, res) => {
     try {
         const presensi = await Presensi.find().sort({waktu_absensi: -1});
+        res.json(presensi);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const getPresensiUser = async (req, res) => {
+    try {
+        const presensi = await Presensi.find({
+            'id_user': req.params.id
+        }).sort({waktu_absensi: -1});
         res.json(presensi);
     } catch (error) {
         res.status(500).json({message: error.message});

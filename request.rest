@@ -38,6 +38,10 @@ Content-Type: application/json
 GET http://localhost:5000/presensi
 
 ###
+GET http://localhost:5000/presensi_user/630b5ee09bcc417e95c36864
+
+
+###
 GET http://localhost:5000/presensi_today/630f6f5d6b70943b9b7dd7ce
 
 ###
