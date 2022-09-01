@@ -1,8 +1,19 @@
 import Laporan from "../models/LaporanModel.js";
 
-export const getLaporan = async (req, res) => {
+export const getAllLaporan = async (req, res) => {
     try {
         const laporans = await Laporan.find().sort({tanggal_laporan: -1});
+        res.json(laporans);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const getLaporanUser = async (req, res) => {
+    try {
+        const laporans = await Laporan.find({
+            'id_user': req.params.id
+        }).sort({tanggal_laporan: -1});
         res.json(laporans);
     } catch (error) {
         res.status(500).json({message: error.message});

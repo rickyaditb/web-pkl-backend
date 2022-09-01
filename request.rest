@@ -10,11 +10,14 @@ POST http://localhost:5000/laporan
 Content-Type: application/json
 
 {
-    "id_user" : "3",
-    "nama_user" : "rraar",
-    "tanggal_laporan" : "2022-08-27",
+    "id_user" : "631023359ec61d81924f0861",
+    "nama_user" : "asdzxc",
+    "tanggal_laporan" : "2022-08-28",
     "isi_laporan" : "whatever"
 }
+###
+GET http://localhost:5000/laporan_user/631023359ec61d81924f0861
+
 
 ###
 
