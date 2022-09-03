@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Schema from "mongoose";
 
 const UserSchema = mongoose.Schema({
     email: {
@@ -32,7 +33,11 @@ const UserSchema = mongoose.Schema({
     token: {
         type: String,
         required: false
-    }
+    },
+    absensi: [{
+        type: Schema.Types.ObjectId,
+        ref: "Presensi"
+    }]
 });
 
 export default mongoose.model('User', UserSchema);

@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import Schema from "mongoose";
 
 const PresensiSchema = mongoose.Schema({
     id_user: {
-        type: String,
-        required: false
+        type: Schema.Types.ObjectId,
+        ref: "User"
     },
     nama_user: {
         type: String,

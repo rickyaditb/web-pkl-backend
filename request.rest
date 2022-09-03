@@ -41,6 +41,9 @@ Content-Type: application/json
 GET http://localhost:5000/presensi
 
 ###
+GET http://localhost:5000/presensi_detail
+
+###
 GET http://localhost:5000/presensi_user/630b5ee09bcc417e95c36864
 
 
@@ -68,7 +71,7 @@ GET http://localhost:5000/user
 
 ### USER
 GET http://localhost:5000/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzBiNWVlMDliY2M0MTdlOTVjMzY4NjQiLCJuYW1hIjoiMTIzIiwiZW1haWwiOiIxMjMiLCJpYXQiOjE2NjE4NTk3ODgsImV4cCI6MTY2MTg1OTgxOH0.rQVfA-QYq0Cfw1Z_fk2aBFnrjQrL6Su2JBFUj3H73LY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzBiNWVlMDliY2M0MTdlOTVjMzY4NjQiLCJuYW1hIjoiMTIzIiwiZW1haWwiOiIxMjMiLCJpYXQiOjE2NjIyMTAxNTIsImV4cCI6MTY2MjIxMDE4Mn0.4q8X0HXMvw1_tA_zKTFLhUMWAk8Wl3oK766Owho6VvI
 
 ###
 POST http://localhost:5000/user
