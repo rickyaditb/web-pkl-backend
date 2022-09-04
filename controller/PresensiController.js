@@ -45,6 +45,46 @@ export const getDetailPresensi = async (req, res) => {
     }
 }
 
+export const getDetailPresensiById = async (req, res) => {
+    try {
+        const kirim = [];
+        const user = await User.find({
+            '_id': req.params.id
+        }).populate('absensi')
+        user.map((item, index) => {
+            kirim.push({
+                _id: item._id,
+                nama: item.nama,
+                asal_instansi: item.asal_instansi,
+                hadir: 0,
+                terlambat: 0,
+                sakit: 0,
+                izin: 0,
+                alpha: 0
+            })
+            let hadir = 0;
+            let sakit = 0;
+            let izin = 0;
+            const absen = item.absensi.filter((value) => {
+                if(value.keterangan == "Hadir") {
+                    hadir = hadir + 1;
+                    kirim[index]['hadir'] = hadir;
+                } else if(value.keterangan == "Sakit") {
+                    sakit = sakit + 1;
+                    kirim[index]['sakit'] = sakit;
+                } else if(value.keterangan == "Izin") {
+                    izin = izin + 1;
+                    kirim[index]['izin'] = izin;
+                }
+                // console.log("Keterangan : " + value.keterangan)
+            })
+        })
+        res.json(kirim);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
+
 export const getAllPresensi = async (req, res) => {
     try {
         const presensi = await Presensi.find().sort({waktu_absensi: -1});

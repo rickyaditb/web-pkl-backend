@@ -44,6 +44,9 @@ GET http://localhost:5000/presensi
 GET http://localhost:5000/presensi_detail
 
 ###
+GET http://localhost:5000/presensi_detail/631365b68384acef7a3c933b
+
+###
 GET http://localhost:5000/presensi_user/630b5ee09bcc417e95c36864
 
 
