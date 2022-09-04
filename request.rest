@@ -71,7 +71,7 @@ GET http://localhost:5000/user
 
 ### USER
 GET http://localhost:5000/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzBiNWVlMDliY2M0MTdlOTVjMzY4NjQiLCJuYW1hIjoiMTIzIiwiZW1haWwiOiIxMjMiLCJpYXQiOjE2NjIyMTAxNTIsImV4cCI6MTY2MjIxMDE4Mn0.4q8X0HXMvw1_tA_zKTFLhUMWAk8Wl3oK766Owho6VvI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzEzNjVlNzgzODRhY2VmN2EzYzkzNTAiLCJuYW1hIjoiNDMyMSIsImVtYWlsIjoiNDMyMSIsImlhdCI6MTY2MjI2OTgxNiwiZXhwIjoxNjYyMjY5ODQ2fQ.1Kfs5KFKm2h9ZTvOqmOG0U4q0ZPgZ1RU-QLtkP4rtwo
 
 ###
 POST http://localhost:5000/user
@@ -94,8 +94,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "123",
-    "password": "123"
+    "email": "4321",
+    "password": "4321"
 }
 
 ###
