@@ -70,6 +70,9 @@ Content-Type: application/json
 GET http://localhost:5000/user
 
 ### USER
+GET http://localhost:5000/user/630c92633929b53750a6f68d
+
+### USER
 GET http://localhost:5000/user
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzEzNjVlNzgzODRhY2VmN2EzYzkzNTAiLCJuYW1hIjoiNDMyMSIsImVtYWlsIjoiNDMyMSIsImlhdCI6MTY2MjI2OTgxNiwiZXhwIjoxNjYyMjY5ODQ2fQ.1Kfs5KFKm2h9ZTvOqmOG0U4q0ZPgZ1RU-QLtkP4rtwo
 

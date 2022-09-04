@@ -11,6 +11,17 @@ export const getUser = async (req, res) => {
     }
 }
 
+export const getUserById = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            '_id': req.params.id
+        }).select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai']);
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 export const registerUser = async (req, res) => {
     const { email, nama, asal_instansi, role, tanggal_mulai, tanggal_selesai, password, confPassword } = req.body;
 
