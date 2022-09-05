@@ -4,8 +4,8 @@ import { getAllLaporan, getLaporanUser, getDetailLaporan, getDetailLaporanById, 
 const router = express.Router();
 
 router.get('/laporan', getAllLaporan);
-router.get('/laporan_pembimbing', getDetailLaporan);
-router.get('/laporan_pembimbing/:id', getDetailLaporanById);
+router.get('/laporan_detail', getDetailLaporan);
+router.get('/laporan_detail/:id', getDetailLaporanById);
 router.get('/laporan_user/:id', getLaporanUser);
 router.get('/laporan/:id', getLaporanById);
 router.post('/laporan', saveLaporan);
