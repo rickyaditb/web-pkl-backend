@@ -1,4 +1,31 @@
 import Laporan from "../models/LaporanModel.js";
+import User from "../models/UserModel.js"
+
+export const getDetailLaporan = async (req, res) => {
+    try {
+        const kirim = [];
+        const user = await User.find({}).populate('laporan')
+        user.map((item, index) => {
+            kirim.push({
+                _id: item._id,
+                nama: item.nama,
+                asal_instansi: item.asal_instansi,
+                jumlah_laporan: 0
+            })
+            let jumlah_laporan = 0;
+            const absen = item.laporan.filter((value) => {
+                if(value) {
+                    jumlah_laporan = jumlah_laporan + 1;
+                    kirim[index]['jumlah_laporan'] = jumlah_laporan;
+                }
+                // console.log("Keterangan : " + value.keterangan)
+            })
+        })
+        res.json(kirim);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
 
 export const getAllLaporan = async (req, res) => {
     try {
@@ -33,6 +60,10 @@ export const saveLaporan = async (req, res) => {
     const laporan = new Laporan(req.body);
     try {
         const insertedlaporan = await laporan.save();
+        const user = await User.findOneAndUpdate(
+            { _id: req.body.id_user},
+            { $push: { laporan: insertedlaporan._id}}
+        )
         res.status(201).json(insertedlaporan);
     } catch (error) {
         res.status(400).json({message: error.message});

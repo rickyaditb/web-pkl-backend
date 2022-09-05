@@ -1,7 +1,9 @@
 GET http://localhost:5000/laporan
 
 ###
+GET http://localhost:5000/laporan_pembimbing
 
+###
 GET http://localhost:5000/laporan/6305cf04990b5822ba7091e0
 
 ###

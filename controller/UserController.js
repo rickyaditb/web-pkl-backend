@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const getUser = async (req, res) => {
     try {
-        const user = await User.find().select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi']);
+        const user = await User.find().select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
