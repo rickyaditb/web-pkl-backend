@@ -27,6 +27,34 @@ export const getDetailLaporan = async (req, res) => {
     }
 }
 
+export const getDetailLaporanById = async (req, res) => {
+    try {
+        const kirim = [];
+        const user = await User.find({
+            '_id': req.params.id
+        }).populate('laporan')
+        user.map((item, index) => {
+            kirim.push({
+                _id: item._id,
+                nama: item.nama,
+                asal_instansi: item.asal_instansi,
+                jumlah_laporan: 0
+            })
+            let jumlah_laporan = 0;
+            const absen = item.laporan.filter((value) => {
+                if(value) {
+                    jumlah_laporan = jumlah_laporan + 1;
+                    kirim[index]['jumlah_laporan'] = jumlah_laporan;
+                }
+                // console.log("Keterangan : " + value.keterangan)
+            })
+        })
+        res.json(kirim);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
+
 export const getAllLaporan = async (req, res) => {
     try {
         const laporans = await Laporan.find().sort({tanggal_laporan: -1});
