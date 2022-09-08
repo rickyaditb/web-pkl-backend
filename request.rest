@@ -77,12 +77,15 @@ Content-Type: application/json
 ### USER
 GET http://localhost:5000/user
 
+### LOGIN
+GET http://localhost:5000/login/rickyadib@gmail.com
+
 ### USER
 GET http://localhost:5000/user/630c92633929b53750a6f68d
 
 ### USER
 GET http://localhost:5000/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzEzNjVlNzgzODRhY2VmN2EzYzkzNTAiLCJuYW1hIjoiNDMyMSIsImVtYWlsIjoiNDMyMSIsImlhdCI6MTY2MjI2OTgxNiwiZXhwIjoxNjYyMjY5ODQ2fQ.1Kfs5KFKm2h9ZTvOqmOG0U4q0ZPgZ1RU-QLtkP4rtwo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzE4NzhlZDJkZWJmMzZjZDA0NTBiNmUiLCJuYW1hIjoiUmlja3kgQWRpdHlhIEJhZ2Fza2FyYSIsImVtYWlsIjoicmlja3lhZGliQGdtYWlsLmNvbSIsImlhdCI6MTY2MjYzODEyMiwiZXhwIjoxNjYyNjM4MTUyfQ.LiWRkbKl663eZX7t36WEr-bKKg_n9dZ_PPFBB2ZmxhQ
 
 ###
 POST http://localhost:5000/user
@@ -105,8 +108,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "4321",
-    "password": "4321"
+    "email": "rickyadib@gmail.com",
+    "password": "123"
 }
 
 ###
