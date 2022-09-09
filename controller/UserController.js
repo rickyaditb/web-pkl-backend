@@ -1,6 +1,22 @@
 import User from "../models/UserModel.js";
-import bcrypt from "bcrypt";
+import bcrypt, { hash } from "bcrypt";
 import jwt from "jsonwebtoken";
+
+export const changePassword = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            '_id': req.params.id
+        }).select(['_id', 'password']);
+        const match = await bcrypt.compare(req.body.passwordLama, user.password);
+        if (!match) return res.status(400).json({ message: "Password Lama Salah" });
+        const salt = await bcrypt.genSalt();
+        const hashPassword = await bcrypt.hash(req.body.passwordBaru, salt);
+        const updateduser = await User.updateOne({_id: req.params.id}, {$set: {password: hashPassword}});
+        res.json(updateduser);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 
 export const getUser = async (req, res) => {
     try {

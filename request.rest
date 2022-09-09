@@ -59,14 +59,12 @@ GET http://localhost:5000/presensi_user/630b5ee09bcc417e95c36864
 GET http://localhost:5000/presensi_today/630f6f5d6b70943b9b7dd7ce
 
 ###
-POST http://localhost:5000/presensi
+POST http://localhost:5000/password/631878ed2debf36cd0450b6e
 Content-Type: application/json
 
 {
-    "id_user" : "3",
-    "nama_user" : "rraar",
-    "waktu_absensi" : "2022-08-27",
-    "keterangan" : "Hadir"
+    "passwordLama" : "321",
+    "passwordBaru" : "321"
 }
 
 ###
