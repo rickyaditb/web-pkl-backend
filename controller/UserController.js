@@ -8,7 +8,7 @@ export const changePassword = async (req, res) => {
             '_id': req.params.id
         }).select(['_id', 'password']);
         const match = await bcrypt.compare(req.body.passwordLama, user.password);
-        if (!match) return res.status(400).json({ message: "Password Lama Salah" });
+        if (!match) return res.status(400).json({ message: "Kata Sandi Lama Salah" });
         const salt = await bcrypt.genSalt();
         const hashPassword = await bcrypt.hash(req.body.passwordBaru, salt);
         const updateduser = await User.updateOne({_id: req.params.id}, {$set: {password: hashPassword}});
@@ -58,7 +58,7 @@ export const registerUser = async (req, res) => {
 
     if(cekUser) return res.status(400).json({ message: "Email yang sudah anda pakai sudah terdaftar!" });
 
-    if (password !== confPassword) return res.status(400).json({ message: "Password dan Konfirmasi Password Tidak Sesuai" });
+    if (password !== confPassword) return res.status(400).json({ message: "Kata Sandi dan Konfirmasi Kata Sandi Tidak Sesuai" });
 
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
@@ -87,7 +87,7 @@ export const loginUser = async (req, res) => {
             'email': req.body.email
         })
         const match = await bcrypt.compare(req.body.password, user.password);
-        if (!match) return res.status(400).json({ message: "Password Salah" });
+        if (!match) return res.status(400).json({ message: "Kata Sandi Salah" });
         const userId = user.id;
         const nama = user.nama;
         const email = user.email;
