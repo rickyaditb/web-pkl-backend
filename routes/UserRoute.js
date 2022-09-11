@@ -1,11 +1,12 @@
 import express from 'express';
-import { getUser, getUserByEmail, changePassword, getUserById, registerUser, deleteUser, loginUser, logoutUser } from "../controller/UserController.js";
+import { getUser, getPembimbing, getUserByEmail, changePassword, getUserById, registerUser, deleteUser, loginUser, logoutUser } from "../controller/UserController.js";
 import { verifyToken } from '../middleware/VerifyToken.js';
 import { refreshToken } from '../controller/RefreshToken.js';
 
 const router = express.Router();
 
 router.get('/user', verifyToken, getUser);
+router.get('/pembimbing', getPembimbing);
 router.get('/user/:id', getUserById);
 router.post('/user', registerUser);
 router.post('/login', loginUser);

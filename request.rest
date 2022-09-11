@@ -73,7 +73,7 @@ Content-Type: application/json
 
 
 ### USER
-GET http://localhost:5000/user
+GET http://localhost:5000/pembimbing
 
 ### LOGIN
 GET http://localhost:5000/login/rickyadib@gmail.com

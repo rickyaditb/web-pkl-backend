@@ -41,6 +41,10 @@ const UserSchema = mongoose.Schema({
     laporan: [{
         type: Schema.Types.ObjectId,
         ref: "Laporan"
+    }],
+    pembimbing: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }]
 });
 

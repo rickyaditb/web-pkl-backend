@@ -20,7 +20,18 @@ export const changePassword = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
-        const user = await User.find().select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
+        const user = await User.find().select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+export const getPembimbing = async (req, res) => {
+    try {
+        const user = await User.find({
+            'role': 'pembimbing'
+        }).select(['_id', 'email', 'nama', 'asal_instansi','role']);
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -50,7 +61,7 @@ export const getUserById = async (req, res) => {
 }
 
 export const registerUser = async (req, res) => {
-    const { email, nama, asal_instansi, role, tanggal_mulai, tanggal_selesai, password, confPassword } = req.body;
+    const { email, nama, asal_instansi, role, tanggal_mulai, tanggal_selesai, password, confPassword, pembimbing } = req.body;
 
     const cekUser = await User.findOne({
         'email': req.body.email
@@ -71,6 +82,7 @@ export const registerUser = async (req, res) => {
         tanggal_mulai: tanggal_mulai,
         tanggal_selesai: tanggal_selesai,
         password: hashPassword,
+        pembimbing: pembimbing
     })
 
     try {
