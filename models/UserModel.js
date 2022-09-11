@@ -42,10 +42,10 @@ const UserSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Laporan"
     }],
-    pembimbing: [{
+    pembimbing: {
         type: Schema.Types.ObjectId,
         ref: "User"
-    }]
+    }
 });
 
 export default mongoose.model('User', UserSchema);

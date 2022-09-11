@@ -69,23 +69,37 @@ export const registerUser = async (req, res) => {
         'email': req.body.email
     })
 
-    if(cekUser) return res.status(400).json({ message: "Email yang sudah anda pakai sudah terdaftar!" });
+    if (cekUser) return res.status(400).json({ message: "Email yang sudah anda pakai sudah terdaftar!" });
 
     if (password !== confPassword) return res.status(400).json({ message: "Kata Sandi dan Konfirmasi Kata Sandi Tidak Sesuai" });
 
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
 
-    const user = new User({
-        email: email,
-        nama: nama,
-        asal_instansi: asal_instansi,
-        role: role,
-        tanggal_mulai: tanggal_mulai,
-        tanggal_selesai: tanggal_selesai,
-        password: hashPassword,
-        pembimbing: pembimbing
-    })
+    let user = {};
+
+    if(pembimbing) {
+        user = new User({
+            email: email,
+            nama: nama,
+            asal_instansi: asal_instansi,
+            role: role,
+            tanggal_mulai: tanggal_mulai,
+            tanggal_selesai: tanggal_selesai,
+            password: hashPassword,
+            pembimbing: pembimbing
+        })
+    } else {
+        user = new User({
+            email: email,
+            nama: nama,
+            asal_instansi: asal_instansi,
+            role: role,
+            tanggal_mulai: tanggal_mulai,
+            tanggal_selesai: tanggal_selesai,
+            password: hashPassword
+        })
+    }
 
     try {
         const inserteduser = await user.save();
