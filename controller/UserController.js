@@ -20,7 +20,9 @@ export const changePassword = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
-        const user = await User.find().select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
+        const user = await User.find({
+            'role': 'user'
+        }).select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
