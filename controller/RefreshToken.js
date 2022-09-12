@@ -1,7 +1,9 @@
 import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
+import moment from "moment";
 
 export const refreshToken = async(req, res) => {
+    const hari_ini = moment();
     try {
         const refreshToken = req.cookies.refreshToken;
         if(!refreshToken) return res.sendStatus(401);
@@ -18,8 +20,8 @@ export const refreshToken = async(req, res) => {
             const role = user[0].role;
             const tanggal_mulai = user[0].tanggal_mulai;
             const tanggal_selesai = user[0].tanggal_selesai;
-
-            const accessToken = jwt.sign({userId, nama, email, instansi, role, tanggal_mulai, tanggal_selesai}, process.env.ACCESS_TOKEN_SECRET, {
+            const status = (hari_ini > tanggal_mulai && hari_ini < tanggal_selesai) ? "Aktif" : "Non Aktif"
+            const accessToken = jwt.sign({userId, nama, email, instansi, role, tanggal_mulai, tanggal_selesai, status}, process.env.ACCESS_TOKEN_SECRET, {
                 expiresIn: '30s'
             });
 
