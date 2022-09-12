@@ -1,6 +1,7 @@
 import User from "../models/UserModel.js";
 import bcrypt, { hash } from "bcrypt";
 import jwt from "jsonwebtoken";
+import moment from 'moment';
 
 export const changePassword = async (req, res) => {
     try {
@@ -19,11 +20,26 @@ export const changePassword = async (req, res) => {
 }
 
 export const getUser = async (req, res) => {
+    const hari_ini = moment();
     try {
         const user = await User.find({
             'role': 'user'
         }).select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
-        res.json(user);
+        const kirim = []
+        user.map((item, index) => {
+            if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
+                kirim.push({
+                    ...item._doc,
+                    status: "Aktif"
+                })
+            } else {
+                kirim.push({
+                    ...item._doc,
+                    status: "Non Aktif"
+                })
+            }
+        })
+        res.json(kirim);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -52,11 +68,24 @@ export const getUserByEmail = async (req, res) => {
 }
 
 export const getUserById = async (req, res) => {
+    const hari_ini = moment();
     try {
         const user = await User.findOne({
             '_id': req.params.id
         }).select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
-        res.json(user);
+        let kirim = {}
+        if(hari_ini > user.tanggal_mulai && hari_ini < user.tanggal_selesai) {
+            kirim = {
+                ...user._doc,
+                status: "Aktif"
+            }
+        } else {
+            kirim = {
+                ...user._doc,
+                status: "Non Aktif"
+            }
+        }
+        res.json(kirim);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
