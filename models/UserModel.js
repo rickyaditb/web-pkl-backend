@@ -6,6 +6,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    telepon: {
+        type: String,
+        required: false
+    },
     nama: {
         type: String,
         required: true

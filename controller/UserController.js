@@ -24,7 +24,7 @@ export const getUser = async (req, res) => {
     try {
         const user = await User.find({
             'role': 'user'
-        }).select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
         const kirim = []
         user.map((item, index) => {
             if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
@@ -49,7 +49,7 @@ export const getPembimbing = async (req, res) => {
     try {
         const user = await User.find({
             'role': 'pembimbing'
-        }).select(['_id', 'email', 'nama', 'asal_instansi','role']);
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi','role']);
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -60,7 +60,7 @@ export const getUserByEmail = async (req, res) => {
     try {
         const user = await User.findOne({
             'email': req.params.id
-        }).select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -72,7 +72,7 @@ export const getUserById = async (req, res) => {
     try {
         const user = await User.findOne({
             '_id': req.params.id
-        }).select(['_id', 'email', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
         let kirim = {}
         if(hari_ini > user.tanggal_mulai && hari_ini < user.tanggal_selesai) {
             kirim = {
@@ -92,7 +92,7 @@ export const getUserById = async (req, res) => {
 }
 
 export const registerUser = async (req, res) => {
-    const { email, nama, asal_instansi, role, tanggal_mulai, tanggal_selesai, password, confPassword, pembimbing } = req.body;
+    const { email, telepon, nama, asal_instansi, role, tanggal_mulai, tanggal_selesai, password, confPassword, pembimbing } = req.body;
 
     const cekUser = await User.findOne({
         'email': req.body.email
@@ -110,6 +110,7 @@ export const registerUser = async (req, res) => {
     if(pembimbing) {
         user = new User({
             email: email,
+            telepon: telepon,
             nama: nama,
             asal_instansi: asal_instansi,
             role: role,
@@ -121,6 +122,7 @@ export const registerUser = async (req, res) => {
     } else {
         user = new User({
             email: email,
+            telepon: telepon,
             nama: nama,
             asal_instansi: asal_instansi,
             role: role,
