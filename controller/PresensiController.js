@@ -1,5 +1,8 @@
 import Presensi from "../models/PresensiModel.js";
 import User from "../models/UserModel.js"
+import moment from "moment";
+
+const hari_ini = moment();
 
 const start = new Date();
 start.setHours(0, 0, 0, 0);
@@ -12,6 +15,7 @@ export const getDetailPresensi = async (req, res) => {
         const kirim = [];
         const user = await User.find({}).populate('absensi')
         user.map((item, index) => {
+            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
@@ -20,7 +24,8 @@ export const getDetailPresensi = async (req, res) => {
                 terlambat: 0,
                 sakit: 0,
                 izin: 0,
-                alpha: 0
+                alpha: 0,
+                status: isi_status
             })
             let hadir = 0;
             let sakit = 0;
@@ -52,6 +57,7 @@ export const getDetailPresensiById = async (req, res) => {
             '_id': req.params.id
         }).populate('absensi')
         user.map((item, index) => {
+            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
@@ -60,7 +66,8 @@ export const getDetailPresensiById = async (req, res) => {
                 terlambat: 0,
                 sakit: 0,
                 izin: 0,
-                alpha: 0
+                alpha: 0,
+                status: isi_status
             })
             let hadir = 0;
             let sakit = 0;
