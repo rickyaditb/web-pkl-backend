@@ -1,16 +1,23 @@
 import Laporan from "../models/LaporanModel.js";
 import User from "../models/UserModel.js"
+import moment from "moment";
+
+const hari_ini = moment();
 
 export const getDetailLaporan = async (req, res) => {
     try {
         const kirim = [];
-        const user = await User.find({}).populate('laporan')
+        const user = await User.find({
+            'role': 'user'
+        }).populate('laporan')
         user.map((item, index) => {
+            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
                 asal_instansi: item.asal_instansi,
-                jumlah_laporan: 0
+                jumlah_laporan: 0,
+                status: isi_status
             })
             let jumlah_laporan = 0;
             const absen = item.laporan.filter((value) => {
@@ -34,11 +41,13 @@ export const getDetailLaporanById = async (req, res) => {
             '_id': req.params.id
         }).populate('laporan')
         user.map((item, index) => {
+            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
                 asal_instansi: item.asal_instansi,
-                jumlah_laporan: 0
+                jumlah_laporan: 0,
+                status: isi_status
             })
             let jumlah_laporan = 0;
             const absen = item.laporan.filter((value) => {

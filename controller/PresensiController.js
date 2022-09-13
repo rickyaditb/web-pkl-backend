@@ -13,7 +13,9 @@ end.setHours(23, 59, 59, 999);
 export const getDetailPresensi = async (req, res) => {
     try {
         const kirim = [];
-        const user = await User.find({}).populate('absensi')
+        const user = await User.find({
+            'role': 'user'
+        }).populate('absensi')
         user.map((item, index) => {
             let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
             kirim.push({

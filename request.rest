@@ -1,4 +1,4 @@
-GET http://localhost:5000/laporan
+GET http://localhost:5000/laporan_detail/631f0ad1f4d059a29123ff0d
 
 ###
 GET http://localhost:5000/laporan_pembimbing
@@ -49,7 +49,7 @@ GET http://localhost:5000/presensi
 GET http://localhost:5000/presensi_detail
 
 ###
-GET http://localhost:5000/presensi_detail/631365b68384acef7a3c933b
+GET http://localhost:5000/presensi_detail/631db45591e73bcca05b3fff
 
 ###
 GET http://localhost:5000/presensi_user/630b5ee09bcc417e95c36864
