@@ -9,7 +9,7 @@ export const refreshToken = async(req, res) => {
         if(!refreshToken) return res.sendStatus(401);
         const user = await User.find({
             'token': refreshToken
-        });
+        }).populate('pembimbing');
         if(!user) return res.sendStatus(403);
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err) return res.sendStatus(403);
