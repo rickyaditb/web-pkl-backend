@@ -60,7 +60,7 @@ export const getUserByEmail = async (req, res) => {
     try {
         const user = await User.findOne({
             'email': req.params.id
-        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -72,7 +72,7 @@ export const getUserById = async (req, res) => {
     try {
         const user = await User.findOne({
             '_id': req.params.id
-        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan']);
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
         let kirim = {}
         if(hari_ini > user.tanggal_mulai && hari_ini < user.tanggal_selesai) {
             kirim = {
