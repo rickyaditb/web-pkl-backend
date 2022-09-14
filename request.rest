@@ -26,14 +26,20 @@ GET http://localhost:5000/laporan_user/631023359ec61d81924f0861
 
 ###
 
-PATCH http://localhost:5000/laporan/6305cf04990b5822ba7091e0
+PATCH http://localhost:5000/telepon/631db45591e73bcca05b3fff
 Content-Type: application/json
 
 {
-    "id_user" : "999",
-    "nama_user" : "999",
-    "tanggal_laporan" : "2022-08-28",
-    "isi_laporan" : "whatever"
+    "telepon" : "085156186145"
+}
+
+###
+
+PATCH http://localhost:5000/email/631db45591e73bcca05b3fff
+Content-Type: application/json
+
+{
+    "email" : "rickyaditb@gmail.com"
 }
 
 ###
@@ -59,7 +65,7 @@ GET http://localhost:5000/presensi_user/630b5ee09bcc417e95c36864
 GET http://localhost:5000/presensi_today/630f6f5d6b70943b9b7dd7ce
 
 ###
-POST http://localhost:5000/password/631878ed2debf36cd0450b6e
+PATCH http://localhost:5000/password/631878ed2debf36cd0450b6e
 Content-Type: application/json
 
 {

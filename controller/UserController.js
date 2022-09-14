@@ -3,6 +3,28 @@ import bcrypt, { hash } from "bcrypt";
 import jwt from "jsonwebtoken";
 import moment from 'moment';
 
+export const changeTelepon = async (req, res) => {
+    try {
+        const updateduser = await User.updateOne({_id: req.params.id}, {$set: {telepon: req.body.telepon}});
+        res.status(200).json(updateduser);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+}
+
+export const changeEmail = async (req, res) => {
+    try {
+        const cekUser = await User.findOne({
+            'email': req.body.email
+        })
+        if (cekUser) return res.status(400).json({ message: "Email yang sudah anda pakai sudah terdaftar!" });
+        const updateduser = await User.updateOne({_id: req.params.id}, {$set: {email: req.body.email}});
+        res.status(200).json(updateduser);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+}
+
 export const changePassword = async (req, res) => {
     try {
         const user = await User.findOne({
