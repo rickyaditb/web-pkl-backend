@@ -2,6 +2,7 @@ import Presensi from "../models/PresensiModel.js";
 import User from "../models/UserModel.js"
 import moment from "moment";
 import momentBusiness from "moment-business-days";
+import _ from 'lodash'
 
 const hari_ini = moment();
 
@@ -125,6 +126,47 @@ export const getPresensiUser = async (req, res) => {
         const presensi = await Presensi.find({
             'id_user': req.params.id
         }).sort({waktu_absensi: -1});
+        
+        const user = await User.find({
+            '_id': req.params.id
+        })
+        
+        let kirim = []
+
+        presensi.map((item, index) => {
+            let objek = {};
+            objek['waktu_absensi'] = item.waktu_absensi;
+            console.log(objek)
+        })
+
+        let tanggalMulai = moment(user[0].tanggal_mulai).startOf('day');
+        var hariIni = moment().startOf('day');
+        let dates = [];
+    
+        while (tanggalMulai.isSameOrBefore(hariIni)) {
+            if(tanggalMulai.isBusinessDay()) {
+                dates.push(tanggalMulai.format());
+            }
+            tanggalMulai.add(1, "days");
+        }
+
+        let array1 = [];
+
+        presensi.map((item, index) => {
+            let x = moment(item.waktu_absensi).startOf('day')
+            array1.push(x.format());
+        })
+
+        const intersection = dates.filter(element => !array1.includes(element));
+
+        let momentDate = [];
+
+        intersection.map((item, index) => {
+            momentDate.push(moment(item));
+        })
+
+        console.log(momentDate);
+        console.log(presensi);
         res.json(presensi);
     } catch (error) {
         res.status(500).json({message: error.message});
