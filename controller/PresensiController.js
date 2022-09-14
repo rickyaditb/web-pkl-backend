@@ -1,6 +1,7 @@
 import Presensi from "../models/PresensiModel.js";
 import User from "../models/UserModel.js"
 import moment from "moment";
+import momentBusiness from "moment-business-days";
 
 const hari_ini = moment();
 
@@ -15,9 +16,12 @@ export const getDetailPresensi = async (req, res) => {
         const kirim = [];
         const user = await User.find({
             'role': 'user'
-        }).populate('absensi')
+        }).populate('absensi');
         user.map((item, index) => {
             let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
+            let hariIni = moment().startOf('day')
+            let jumlahHari = momentBusiness(hariIni).businessDiff(moment(tanggalMulai));
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
@@ -32,19 +36,24 @@ export const getDetailPresensi = async (req, res) => {
             let hadir = 0;
             let sakit = 0;
             let izin = 0;
+            let totalHari = 0;
             const absen = item.absensi.filter((value) => {
                 if(value.keterangan == "Hadir") {
                     hadir = hadir + 1;
                     kirim[index]['hadir'] = hadir;
+                    totalHari = totalHari + 1;
                 } else if(value.keterangan == "Sakit") {
                     sakit = sakit + 1;
                     kirim[index]['sakit'] = sakit;
+                    totalHari = totalHari + 1;
                 } else if(value.keterangan == "Izin") {
                     izin = izin + 1;
                     kirim[index]['izin'] = izin;
+                    totalHari = totalHari + 1;
                 }
                 // console.log("Keterangan : " + value.keterangan)
             })
+            kirim[index]['alpha'] = jumlahHari-totalHari;
         })
         res.json(kirim);
     } catch (error) {
@@ -60,6 +69,9 @@ export const getDetailPresensiById = async (req, res) => {
         }).populate('absensi')
         user.map((item, index) => {
             let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
+            let hariIni = moment().startOf('day')
+            let jumlahHari = momentBusiness(hariIni).businessDiff(moment(tanggalMulai));
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
@@ -74,19 +86,24 @@ export const getDetailPresensiById = async (req, res) => {
             let hadir = 0;
             let sakit = 0;
             let izin = 0;
+            let totalHari = 0;
             const absen = item.absensi.filter((value) => {
                 if(value.keterangan == "Hadir") {
                     hadir = hadir + 1;
                     kirim[index]['hadir'] = hadir;
+                    totalHari = totalHari + 1;
                 } else if(value.keterangan == "Sakit") {
                     sakit = sakit + 1;
                     kirim[index]['sakit'] = sakit;
+                    totalHari = totalHari + 1;
                 } else if(value.keterangan == "Izin") {
                     izin = izin + 1;
                     kirim[index]['izin'] = izin;
+                    totalHari = totalHari + 1;
                 }
                 // console.log("Keterangan : " + value.keterangan)
             })
+            kirim[index]['alpha'] = jumlahHari-totalHari;
         })
         res.json(kirim);
     } catch (error) {
