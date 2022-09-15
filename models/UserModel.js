@@ -49,6 +49,10 @@ const UserSchema = mongoose.Schema({
     pembimbing: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    gambar: {
+        type: Boolean,
+        required: false
     }
 });
 

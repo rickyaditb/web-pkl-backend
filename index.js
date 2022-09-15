@@ -20,6 +20,7 @@ db.once('open', () => console.log('Database Connected'));
 app.use(cors({ credentials:true, origin:'http://localhost:3000' }));
 app.use(cookieParser());
 app.use(express.json());
+app.use(express.static('images'));
 
 app.use(LaporanRoute);
 app.use(PresensiRoute);

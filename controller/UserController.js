@@ -2,6 +2,30 @@ import User from "../models/UserModel.js";
 import bcrypt, { hash } from "bcrypt";
 import jwt from "jsonwebtoken";
 import moment from 'moment';
+import multer from 'multer';
+import path from 'node:path';
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './images')
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.id_user + path.extname(file.originalname))
+    }
+})
+
+export const upload = multer({
+    storage: storage
+})
+
+export const uploadProfile = async (req, res) => {
+    try {
+        const updateduser = await User.updateOne({_id: req.body.id_user}, {$set: {gambar: true}});
+        res.status(200).json(updateduser);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+}
 
 export const changeTelepon = async (req, res) => {
     try {
@@ -46,7 +70,7 @@ export const getUser = async (req, res) => {
     try {
         const user = await User.find({
             'role': 'user'
-        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing");
         const kirim = []
         user.map((item, index) => {
             if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
@@ -82,7 +106,7 @@ export const getUserByEmail = async (req, res) => {
     try {
         const user = await User.findOne({
             'email': req.params.id
-        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing");
         res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -94,7 +118,7 @@ export const getUserById = async (req, res) => {
     try {
         const user = await User.findOne({
             '_id': req.params.id
-        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing']).populate("pembimbing");
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing");
         let kirim = {}
         if(hari_ini > user.tanggal_mulai && hari_ini < user.tanggal_selesai) {
             kirim = {
