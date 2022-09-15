@@ -169,7 +169,7 @@ export const loginUser = async (req, res) => {
         })
         const match = await bcrypt.compare(req.body.password, user.password);
         if (!match) return res.status(400).json({ message: "Kata Sandi Salah" });
-        const userId = user.id;
+        const userId = user._id;
         const nama = user.nama;
         const email = user.email;
         const accessToken = jwt.sign({ userId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
