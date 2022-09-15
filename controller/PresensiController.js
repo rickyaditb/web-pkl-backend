@@ -18,21 +18,13 @@ export const getDetailPresensi = async (req, res) => {
         const user = await User.find({
             'role': 'user'
         }).populate('absensi');
+        const presensiToday = await Presensi.find({
+            'waktu_absensi': {
+                $gte: start,
+                $lt: end
+            }
+        });
         user.map((item, index) => {
-            // FIX THIS !!!!!!!!!!
-            // let presensiToday;
-            // const dump = async (req, res) => {
-            //     presensiToday = await Presensi.findOne({
-            //         'id_user': item._id,
-            //         'waktu_absensi': {
-            //             $gte: start,
-            //             $lt: end
-            //         }
-            //     });
-            // }
-            // console.log(presensiToday);
-            // console.log(item._id);
-
             let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
             let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
             let hariIni = moment().startOf('day')
@@ -66,10 +58,16 @@ export const getDetailPresensi = async (req, res) => {
                     kirim[index]['izin'] = izin;
                     totalHari = totalHari + 1;
                 }
-                // console.log("Keterangan : " + value.keterangan)
-            })
+                for (var j = 0, len2 = presensiToday.length; j < len2; j++) { 
+                    if (moment(value.waktu_absensi).format() === moment(presensiToday[j].waktu_absensi).format()) {
+                        totalHari = totalHari - 1;
+                    } else {
+                        totalHari = totalHari;
+                    }
 
-            kirim[index]['alpha'] = jumlahHari-totalHari+1;
+                }
+            })
+            kirim[index]['alpha'] = jumlahHari-totalHari;
         })
         res.json(kirim);
     } catch (error) {
