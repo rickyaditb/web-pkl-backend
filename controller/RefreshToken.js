@@ -22,8 +22,9 @@ export const refreshToken = async(req, res) => {
             const tanggal_mulai = user[0].tanggal_mulai;
             const tanggal_selesai = user[0].tanggal_selesai;
             const pembimbing = user[0].pembimbing;
+            const gambar = user[0].gambar;
             const status = (hari_ini > tanggal_mulai && hari_ini < tanggal_selesai) ? "Aktif" : "Non Aktif"
-            const accessToken = jwt.sign({userId, nama, email, telepon, instansi, role, tanggal_mulai, tanggal_selesai, status, pembimbing}, process.env.ACCESS_TOKEN_SECRET, {
+            const accessToken = jwt.sign({userId, nama, email, telepon, instansi, role, tanggal_mulai, tanggal_selesai, status, pembimbing, gambar}, process.env.ACCESS_TOKEN_SECRET, {
                 expiresIn: '30s'
             });
 
