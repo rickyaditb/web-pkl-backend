@@ -20,7 +20,8 @@ export const upload = multer({
 
 export const uploadProfile = async (req, res) => {
     try {
-        const updateduser = await User.updateOne({_id: req.body.id_user}, {$set: {gambar: true}});
+        const formatFile = path.extname(req.file.originalname);
+        const updateduser = await User.updateOne({_id: req.body.id_user}, {$set: {gambar: formatFile}});
         res.status(200).json(updateduser);
     } catch (error) {
         res.status(400).json({message: error.message});

@@ -51,7 +51,7 @@ const UserSchema = mongoose.Schema({
         ref: "User"
     },
     gambar: {
-        type: Boolean,
+        type: String,
         required: false
     }
 });
