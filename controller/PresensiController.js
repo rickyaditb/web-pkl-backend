@@ -238,7 +238,15 @@ export const getPresensiById = async (req, res) => {
 
 export const savePresensi = async (req, res) => {
     const presensi = new Presensi(req.body);
+    const presensiToday = await Presensi.findOne({
+        'id_user': req.body.id_user,
+        'waktu_absensi': {
+            $gte: start,
+            $lt: end
+        }
+    });
     try {
+        if (presensiToday) return res.status(400).json({ message: "Hari Ini Anda Sudah Absen!" });
         const insertedpresensi = await presensi.save();
         const user = await User.findOneAndUpdate(
             { _id: req.body.id_user},
