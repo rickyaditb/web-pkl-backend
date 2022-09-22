@@ -47,7 +47,8 @@ export const getDetailLaporanById = async (req, res) => {
                 nama: item.nama,
                 asal_instansi: item.asal_instansi,
                 jumlah_laporan: 0,
-                status: isi_status
+                status: isi_status,
+                gambar: item.gambar
             })
             let jumlah_laporan = 0;
             const absen = item.laporan.filter((value) => {

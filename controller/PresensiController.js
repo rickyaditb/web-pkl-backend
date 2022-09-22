@@ -102,7 +102,8 @@ export const getDetailPresensiById = async (req, res) => {
                 sakit: 0,
                 izin: 0,
                 alpha: 0,
-                status: isi_status
+                status: isi_status,
+                gambar: item.gambar
             })
             let hadir = 0;
             let sakit = 0;
