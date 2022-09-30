@@ -27,7 +27,7 @@ export const getDetailPresensi = async (req, res) => {
         user.map((item, index) => {
             let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
             let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
-            let hariIni = moment().startOf('day')
+            let hariIni = item.tanggal_selesai > moment().startOf('day') ? undefined : item.tanggal_selesai;
             let jumlahHari = momentBusiness(hariIni).businessDiff(moment(tanggalMulai));
             kirim.push({
                 _id: item._id,
@@ -68,6 +68,9 @@ export const getDetailPresensi = async (req, res) => {
                 }
             })
             kirim[index]['alpha'] = jumlahHari-totalHari;
+            if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
+                kirim[index]['alpha'] = kirim[index]['alpha']-1
+            }
         })
         res.json(kirim);
     } catch (error) {
@@ -91,8 +94,8 @@ export const getDetailPresensiById = async (req, res) => {
         user.map((item, index) => {
             let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
             let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
-            let hariIni = moment().startOf('day')
-            let jumlahHari = momentBusiness(hariIni).businessDiff(moment(tanggalMulai));
+            let hariSelesai = item.tanggal_selesai > moment().startOf('day') ? undefined : item.tanggal_selesai;
+            let jumlahHari = momentBusiness(hariSelesai).businessDiff(moment(tanggalMulai));
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
@@ -129,6 +132,9 @@ export const getDetailPresensiById = async (req, res) => {
                 kirim[index]['alpha'] = jumlahHari-totalHari+1;
             } else {
                 kirim[index]['alpha'] = jumlahHari-totalHari;
+            }
+            if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
+                kirim[index]['alpha'] = kirim[index]['alpha']-1
             }
             
         })
@@ -168,10 +174,11 @@ export const getPresensiUser = async (req, res) => {
         })
 
         let tanggalMulai = moment(user[0].tanggal_mulai).startOf('day');
-        var hariIni = moment().subtract(1, 'days').startOf('day');
+        let bandingkan = user[0].tanggal_selesai > moment() ? undefined : user[0].tanggal_selesai;
+        var hariTerakhir = (hari_ini > user[0].tanggal_mulai && hari_ini < user[0].tanggal_selesai) ? moment(bandingkan).subtract(1, 'days').startOf('day') : moment(bandingkan).startOf('day');
         let dates = [];
     
-        while (tanggalMulai.isSameOrBefore(hariIni)) {
+        while (tanggalMulai.isSameOrBefore(hariTerakhir)) {
             if(tanggalMulai.isBusinessDay()) {
                 dates.push(tanggalMulai.format());
             }
