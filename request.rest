@@ -74,7 +74,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5000/presensi/630f6f5d6b70943b9b7dd7ce
+DELETE http://localhost:5000/presensi/63259d7a1f0b6b6dbd267dad
 Content-Type: application/json
 
 

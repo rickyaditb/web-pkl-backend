@@ -43,6 +43,7 @@ export const getDetailPresensi = async (req, res) => {
             let hadir = 0;
             let sakit = 0;
             let izin = 0;
+            let terlambat = 0;
             let totalHari = 0;
             const absen = item.absensi.filter((value) => {
                 if(value.keterangan == "Hadir") {
@@ -56,6 +57,10 @@ export const getDetailPresensi = async (req, res) => {
                 } else if(value.keterangan == "Izin") {
                     izin = izin + 1;
                     kirim[index]['izin'] = izin;
+                    totalHari = totalHari + 1;
+                } else if(value.keterangan == "Terlambat") {
+                    terlambat = terlambat + 1;
+                    kirim[index]['terlambat'] = terlambat;
                     totalHari = totalHari + 1;
                 }
                 for (var j = 0, len2 = presensiToday.length; j < len2; j++) { 
@@ -111,6 +116,7 @@ export const getDetailPresensiById = async (req, res) => {
             let hadir = 0;
             let sakit = 0;
             let izin = 0;
+            let terlambat = 0;
             let totalHari = 0;
             const absen = item.absensi.filter((value) => {
                 if(value.keterangan == "Hadir") {
@@ -124,6 +130,10 @@ export const getDetailPresensiById = async (req, res) => {
                 } else if(value.keterangan == "Izin") {
                     izin = izin + 1;
                     kirim[index]['izin'] = izin;
+                    totalHari = totalHari + 1;
+                } else if(value.keterangan == "Terlambat") {
+                    terlambat = terlambat + 1;
+                    kirim[index]['terlambat'] = terlambat;
                     totalHari = totalHari + 1;
                 }
                 // console.log("Keterangan : " + value.keterangan)
