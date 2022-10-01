@@ -74,7 +74,10 @@ export const getDetailPresensi = async (req, res) => {
             })
             kirim[index]['alpha'] = jumlahHari-totalHari;
             if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
-                kirim[index]['alpha'] = kirim[index]['alpha']-1
+                kirim[index]['alpha'] = kirim[index]['alpha']-1;
+                if(!moment(hari_ini).isBusinessDay()) {
+                    kirim[index]['alpha'] = kirim[index]['alpha']+1;
+                }
             }
         })
         res.json(kirim);
@@ -144,7 +147,10 @@ export const getDetailPresensiById = async (req, res) => {
                 kirim[index]['alpha'] = jumlahHari-totalHari;
             }
             if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
-                kirim[index]['alpha'] = kirim[index]['alpha']-1
+                kirim[index]['alpha'] = kirim[index]['alpha']-1;
+                if(!moment(hari_ini).isBusinessDay()) {
+                    kirim[index]['alpha'] = kirim[index]['alpha']+1;
+                }
             }
             
         })
