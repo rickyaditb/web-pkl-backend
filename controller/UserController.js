@@ -5,7 +5,7 @@ import moment from 'moment';
 import multer from 'multer';
 import path from 'node:path';
 
-const storage = multer.diskStorage({
+const storageImg = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './images')
     },
@@ -14,8 +14,8 @@ const storage = multer.diskStorage({
     }
 })
 
-export const upload = multer({
-    storage: storage
+export const uploadImg = multer({
+    storage: storageImg
 })
 
 export const uploadProfile = async (req, res) => {

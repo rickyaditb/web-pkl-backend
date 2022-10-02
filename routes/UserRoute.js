@@ -1,5 +1,5 @@
 import express from 'express';
-import { upload, getUser, getPembimbing, getUserByEmail, changePassword, changeTelepon, changeEmail, getUserById, registerUser, deleteUser, loginUser, logoutUser, uploadProfile } from "../controller/UserController.js";
+import { uploadImg, getUser, getPembimbing, getUserByEmail, changePassword, changeTelepon, changeEmail, getUserById, registerUser, deleteUser, loginUser, logoutUser, uploadProfile } from "../controller/UserController.js";
 import { verifyToken } from '../middleware/VerifyToken.js';
 import { refreshToken } from '../controller/RefreshToken.js';
 
@@ -16,7 +16,7 @@ router.patch('/email/:id', changeEmail);
 router.get('/login/:id', getUserByEmail);
 router.get('/token', refreshToken);
 router.delete('/logout', logoutUser);
-router.post('/image', upload.single('image'), uploadProfile);
+router.post('/image', uploadImg.single('image'), uploadProfile);
 
 router.delete('/user/:id', deleteUser);
 
