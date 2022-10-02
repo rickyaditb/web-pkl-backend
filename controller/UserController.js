@@ -14,8 +14,21 @@ const storageImg = multer.diskStorage({
     }
 })
 
+const storageLaporan = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './laporan')
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.id_user + path.extname(file.originalname))
+    }
+})
+
 export const uploadImg = multer({
     storage: storageImg
+})
+
+export const uploadLaporan = multer({
+    storage: storageLaporan
 })
 
 export const uploadProfile = async (req, res) => {
@@ -23,6 +36,14 @@ export const uploadProfile = async (req, res) => {
         const formatFile = path.extname(req.file.originalname);
         const updateduser = await User.updateOne({_id: req.body.id_user}, {$set: {gambar: formatFile}});
         res.status(200).json(updateduser);
+    } catch (error) {
+        res.status(400).json({message: error.message});
+    }
+}
+
+export const updateLaporan = async (req, res) => {
+    try {
+        res.status(200).json("OKE");
     } catch (error) {
         res.status(400).json({message: error.message});
     }
