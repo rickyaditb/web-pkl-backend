@@ -79,6 +79,9 @@ export const getDetailPresensi = async (req, res) => {
                     kirim[index]['alpha'] = kirim[index]['alpha']+1;
                 }
             }
+            if(kirim[index]['alpha'] < 0) {
+                kirim[index]['alpha'] = 0;
+            }
         })
         res.json(kirim);
     } catch (error) {
@@ -151,6 +154,9 @@ export const getDetailPresensiById = async (req, res) => {
                 if(!moment(hari_ini).isBusinessDay()) {
                     kirim[index]['alpha'] = kirim[index]['alpha']+1;
                 }
+            }
+            if(kirim[index]['alpha'] < 0) {
+                kirim[index]['alpha'] = 0;
             }
             
         })
