@@ -260,3 +260,13 @@ export const logoutUser = async (req, res) => {
     res.clearCookie('refreshToken');
     return res.sendStatus(200);
 }
+
+export const hapusUser = async (req, res) => {
+    try {
+        const deletedUser = await User.deleteOne({_id: req.params.id});
+        res.status(200).json(deletedUser);
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({message: error.message});
+    }
+}

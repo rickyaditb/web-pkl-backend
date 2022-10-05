@@ -125,11 +125,6 @@ GET http://localhost:5000/token
 ###
 DELETE http://localhost:5000/logout
 
-
-
-
-
-
 ###
-DELETE http://localhost:5000/user/630b2d15a3ad70248819a6a8
+DELETE http://localhost:5000/hapus_user/6336a04b5c3411328c1aecd8
 Content-Type: application/json
