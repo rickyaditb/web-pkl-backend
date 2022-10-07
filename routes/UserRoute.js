@@ -1,5 +1,5 @@
 import express from 'express';
-import { hapusUser, uploadLaporan, updateLaporan, uploadImg, getUser, getPembimbing, getUserByEmail, changePassword, changeTelepon, changeEmail, getUserById, registerUser, deleteUser, loginUser, logoutUser, uploadProfile } from "../controller/UserController.js";
+import { getUserByPembimbing, hapusUser, uploadLaporan, updateLaporan, uploadImg, getUser, getPembimbing, getUserByEmail, changePassword, changeTelepon, changeEmail, getUserById, registerUser, deleteUser, loginUser, logoutUser, uploadProfile } from "../controller/UserController.js";
 import { verifyToken } from '../middleware/VerifyToken.js';
 import { refreshToken } from '../controller/RefreshToken.js';
 
@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/user', getUser);
 router.get('/pembimbing', getPembimbing);
 router.get('/user/:id', getUserById);
+router.get('/user_pembimbing/:id', getUserByPembimbing);
 router.post('/user', registerUser);
 router.post('/login', loginUser);
 router.patch('/password/:id', changePassword);

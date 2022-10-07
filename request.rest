@@ -82,6 +82,9 @@ Content-Type: application/json
 GET http://localhost:5000/user
 
 ### USER
+GET http://localhost:5000/user_pembimbing/632062898acf35e623ff3ce5
+
+### USER
 GET http://localhost:5000/user/6323313d29ab8b55d26afbe1
 
 ### LOGIN

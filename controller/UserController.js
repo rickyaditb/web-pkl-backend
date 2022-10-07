@@ -113,6 +113,33 @@ export const getUser = async (req, res) => {
     }
 }
 
+export const getUserByPembimbing = async (req, res) => {
+    const hari_ini = moment();
+    try {
+        const user = await User.find({
+            'role': 'user',
+            'pembimbing': req.params.id
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing");
+        const kirim = []
+        user.map((item, index) => {
+            if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
+                kirim.push({
+                    ...item._doc,
+                    status: "Aktif"
+                })
+            } else {
+                kirim.push({
+                    ...item._doc,
+                    status: "Non Aktif"
+                })
+            }
+        })
+        res.json(kirim);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 export const getPembimbing = async (req, res) => {
     try {
         const user = await User.find({
