@@ -197,6 +197,8 @@ export const registerUser = async (req, res) => {
 
     if (password !== confPassword) return res.status(400).json({ message: "Kata Sandi dan Konfirmasi Kata Sandi Tidak Sesuai" });
 
+    if(tanggal_selesai < tanggal_mulai) return res.status(400).json({ message: "Tanggal mulai dan tanggal selesai tidak valid" });
+
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
 
