@@ -9,6 +9,37 @@ export const getDetailLaporan = async (req, res) => {
         const kirim = [];
         const user = await User.find({
             'role': 'user'
+        }).populate('laporan').populate("pembimbing")
+        user.map((item, index) => {
+            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            kirim.push({
+                _id: item._id,
+                nama: item.nama,
+                asal_instansi: item.asal_instansi,
+                jumlah_laporan: 0,
+                status: isi_status,
+                pembimbing: item.pembimbing
+            })
+            let jumlah_laporan = 0;
+            const absen = item.laporan.filter((value) => {
+                if(value) {
+                    jumlah_laporan = jumlah_laporan + 1;
+                    kirim[index]['jumlah_laporan'] = jumlah_laporan;
+                }
+                // console.log("Keterangan : " + value.keterangan)
+            })
+        })
+        res.json(kirim);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const getDetailLaporanByPembimbing = async (req, res) => {
+    try {
+        const kirim = [];
+        const user = await User.find({
+            'pembimbing': req.params.id
         }).populate('laporan')
         user.map((item, index) => {
             let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";

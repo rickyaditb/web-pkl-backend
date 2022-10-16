@@ -17,6 +17,84 @@ export const getDetailPresensi = async (req, res) => {
         const kirim = [];
         const user = await User.find({
             'role': 'user'
+        }).populate('absensi').populate("pembimbing");
+        const presensiToday = await Presensi.find({
+            'waktu_absensi': {
+                $gte: start,
+                $lt: end
+            }
+        });
+        user.map((item, index) => {
+            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
+            let hariIni = item.tanggal_selesai > moment().startOf('day') ? undefined : item.tanggal_selesai;
+            let jumlahHari = momentBusiness(hariIni).businessDiff(moment(tanggalMulai));
+            kirim.push({
+                _id: item._id,
+                nama: item.nama,
+                asal_instansi: item.asal_instansi,
+                hadir: 0,
+                terlambat: 0,
+                sakit: 0,
+                izin: 0,
+                alpha: 0,
+                status: isi_status,
+                pembimbing: item.pembimbing
+            })
+            let hadir = 0;
+            let sakit = 0;
+            let izin = 0;
+            let terlambat = 0;
+            let totalHari = 0;
+            const absen = item.absensi.filter((value) => {
+                if(value.keterangan == "Hadir") {
+                    hadir = hadir + 1;
+                    kirim[index]['hadir'] = hadir;
+                    totalHari = totalHari + 1;
+                } else if(value.keterangan == "Sakit") {
+                    sakit = sakit + 1;
+                    kirim[index]['sakit'] = sakit;
+                    totalHari = totalHari + 1;
+                } else if(value.keterangan == "Izin") {
+                    izin = izin + 1;
+                    kirim[index]['izin'] = izin;
+                    totalHari = totalHari + 1;
+                } else if(value.keterangan == "Terlambat") {
+                    terlambat = terlambat + 1;
+                    kirim[index]['terlambat'] = terlambat;
+                    totalHari = totalHari + 1;
+                }
+                for (var j = 0, len2 = presensiToday.length; j < len2; j++) { 
+                    if (moment(value.waktu_absensi).format() === moment(presensiToday[j].waktu_absensi).format()) {
+                        totalHari = totalHari - 1;
+                    } else {
+                        totalHari = totalHari;
+                    }
+
+                }
+            })
+            kirim[index]['alpha'] = jumlahHari-totalHari;
+            if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
+                kirim[index]['alpha'] = kirim[index]['alpha']-1;
+                if(!moment(hari_ini).isBusinessDay()) {
+                    kirim[index]['alpha'] = kirim[index]['alpha']+1;
+                }
+            }
+            if(kirim[index]['alpha'] < 0) {
+                kirim[index]['alpha'] = 0;
+            }
+        })
+        res.json(kirim);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const getDetailPresensiByPembimbing = async (req, res) => {
+    try {
+        const kirim = [];
+        const user = await User.find({
+            'pembimbing': req.params.id
         }).populate('absensi');
         const presensiToday = await Presensi.find({
             'waktu_absensi': {

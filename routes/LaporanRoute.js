@@ -1,10 +1,11 @@
 import express from "express";
-import { getAllLaporan, getLaporanUser, getDetailLaporan, getDetailLaporanById, getLaporanById, saveLaporan, updateLaporan, deleteLaporan } from "../controller/LaporanController.js"
+import { getDetailLaporanByPembimbing, getAllLaporan, getLaporanUser, getDetailLaporan, getDetailLaporanById, getLaporanById, saveLaporan, updateLaporan, deleteLaporan } from "../controller/LaporanController.js"
 
 const router = express.Router();
 
 router.get('/laporan', getAllLaporan);
 router.get('/laporan_detail', getDetailLaporan);
+router.get('/laporan_pembimbing/:id', getDetailLaporanByPembimbing);
 router.get('/laporan_detail/:id', getDetailLaporanById);
 router.get('/laporan_user/:id', getLaporanUser);
 router.get('/laporan/:id', getLaporanById);
