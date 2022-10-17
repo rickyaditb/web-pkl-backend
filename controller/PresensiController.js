@@ -25,7 +25,7 @@ export const getDetailPresensi = async (req, res) => {
             }
         });
         user.map((item, index) => {
-            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let isi_status = (hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) ? "Aktif" : "Non Aktif";
             let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
             let hariIni = item.tanggal_selesai > moment().startOf('day') ? undefined : item.tanggal_selesai;
             let jumlahHari = momentBusiness(hariIni).businessDiff(moment(tanggalMulai));
@@ -103,7 +103,7 @@ export const getDetailPresensiByPembimbing = async (req, res) => {
             }
         });
         user.map((item, index) => {
-            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let isi_status = (hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) ? "Aktif" : "Non Aktif";
             let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
             let hariIni = item.tanggal_selesai > moment().startOf('day') ? undefined : item.tanggal_selesai;
             let jumlahHari = momentBusiness(hariIni).businessDiff(moment(tanggalMulai));
@@ -181,7 +181,7 @@ export const getDetailPresensiById = async (req, res) => {
             '_id': req.params.id
         }).populate('absensi')
         user.map((item, index) => {
-            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let isi_status = (hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) ? "Aktif" : "Non Aktif";
             let tanggalMulai = moment(item.tanggal_mulai).startOf('day')
             let hariSelesai = item.tanggal_selesai > moment().startOf('day') ? undefined : item.tanggal_selesai;
             let jumlahHari = momentBusiness(hariSelesai).businessDiff(moment(tanggalMulai));

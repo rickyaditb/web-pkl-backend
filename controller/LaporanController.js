@@ -11,7 +11,7 @@ export const getDetailLaporan = async (req, res) => {
             'role': 'user'
         }).populate('laporan').populate("pembimbing")
         user.map((item, index) => {
-            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let isi_status = (hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) ? "Aktif" : "Non Aktif";
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
@@ -42,7 +42,7 @@ export const getDetailLaporanByPembimbing = async (req, res) => {
             'pembimbing': req.params.id
         }).populate('laporan')
         user.map((item, index) => {
-            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let isi_status = (hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) ? "Aktif" : "Non Aktif";
             kirim.push({
                 _id: item._id,
                 nama: item.nama,
@@ -72,7 +72,7 @@ export const getDetailLaporanById = async (req, res) => {
             '_id': req.params.id
         }).populate('laporan')
         user.map((item, index) => {
-            let isi_status = (hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) ? "Aktif" : "Non Aktif";
+            let isi_status = (hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) ? "Aktif" : "Non Aktif";
             kirim.push({
                 _id: item._id,
                 nama: item.nama,

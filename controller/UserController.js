@@ -95,7 +95,7 @@ export const getUser = async (req, res) => {
         }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing");
         const kirim = []
         user.map((item, index) => {
-            if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
+            if(hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) {
                 kirim.push({
                     ...item._doc,
                     status: "Aktif"
@@ -122,7 +122,7 @@ export const getUserByPembimbing = async (req, res) => {
         }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing");
         const kirim = []
         user.map((item, index) => {
-            if(hari_ini > item.tanggal_mulai && hari_ini < item.tanggal_selesai) {
+            if(hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) {
                 kirim.push({
                     ...item._doc,
                     status: "Aktif"
@@ -169,7 +169,7 @@ export const getUserById = async (req, res) => {
             '_id': req.params.id
         }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing");
         let kirim = {}
-        if(hari_ini > user.tanggal_mulai && hari_ini < user.tanggal_selesai) {
+        if(hari_ini > moment(user.tanggal_mulai).startOf('day') && hari_ini < moment(user.tanggal_selesai).endOf('day')) {
             kirim = {
                 ...user._doc,
                 status: "Aktif"

@@ -20,8 +20,8 @@ export const refreshToken = async (req, res) => {
                 const telepon = user[0].telepon;
                 const instansi = user[0].asal_instansi;
                 const role = user[0].role;
-                const tanggal_mulai = user[0].tanggal_mulai;
-                const tanggal_selesai = user[0].tanggal_selesai;
+                const tanggal_mulai = moment(user[0].tanggal_mulai).startOf('day');
+                const tanggal_selesai = moment(user[0].tanggal_selesai).endOf('day');
                 const pembimbing = user[0].pembimbing;
                 const gambar = user[0].gambar;
                 const status = (hari_ini > tanggal_mulai && hari_ini < tanggal_selesai) ? "Aktif" : "Non Aktif"
