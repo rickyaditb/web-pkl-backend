@@ -24,7 +24,15 @@ const storageLaporan = multer.diskStorage({
 })
 
 export const uploadImg = multer({
-    storage: storageImg
+    storage: storageImg,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+          cb(null, true);
+        } else {
+          cb(null, false);
+          return cb(new Error('Hanya format file .png, .jpg dan .jpeg yang diizinkan!'));
+        }
+      }
 })
 
 export const uploadLaporan = multer({
