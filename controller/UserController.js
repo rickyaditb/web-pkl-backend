@@ -36,7 +36,15 @@ export const uploadImg = multer({
 })
 
 export const uploadLaporan = multer({
-    storage: storageLaporan
+    storage: storageLaporan,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "application/pdf") {
+          cb(null, true);
+        } else {
+          cb(null, false);
+          return cb(new Error('Hanya format file .pdf yang diizinkan!'));
+        }
+      }
 })
 
 export const uploadProfile = async (req, res) => {
