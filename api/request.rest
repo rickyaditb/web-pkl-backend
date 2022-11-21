@@ -9,8 +9,6 @@ GET http://localhost:5000/laporan_pembimbing/631365b68384acef7a3c933b
 ###
 GET http://localhost:5000/laporan/6305cf04990b5822ba7091e0
 
-###
-
 POST http://localhost:5000/laporan
 Content-Type: application/json
 
