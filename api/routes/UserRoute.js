@@ -5,18 +5,18 @@ import { refreshToken } from '../controller/RefreshToken.js';
 
 const router = express.Router();
 
-router.get('/api/user', getUser);
+router.get('api/user', getUser);
 router.get('api/pembimbing', getPembimbing);
 router.get('api/user/:id', getUserById);
 router.get('api/user_pembimbing/:id', getUserByPembimbing);
-router.post('/api/user', registerUser);
-router.post('/api/login', loginUser);
-router.patch('/password/:id', changePassword);
-router.patch('/telepon/:id', changeTelepon);
-router.patch('api//email/:id', changeEmail);
-router.get('/api/login/:id', getUserByEmail);
-router.get('/api/token', refreshToken);
-router.delete('api//logout', logoutUser);
+router.post('api/user', registerUser);
+router.post('api/login', loginUser);
+router.patch('password/:id', changePassword);
+router.patch('telepon/:id', changeTelepon);
+router.patch('api/email/:id', changeEmail);
+router.get('api/login/:id', getUserByEmail);
+router.get('api/token', refreshToken);
+router.delete('api/logout', logoutUser);
 router.delete('/hapus_user/:id', hapusUser);
 router.post('/image', uploadImg.single('image'), uploadProfile);
 router.post('/file_laporan', uploadLaporan.single('laporan'), updateLaporan);
