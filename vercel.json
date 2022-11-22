@@ -1,13 +1,27 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/index.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "redirects": [
-      { "source": "/(.*)", "destination": "/api/index.js" }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/user",
+      "destination": "/api/user"
+    },
+    {
+      "source": "/login",
+      "destination": "/api/login"
+    },
+    {
+      "source": "/register",
+      "destination": "/api/register"
+    },
+    {
+      "source": "/token",
+      "destination": "/api/token"
+    },
+  ]
+}
