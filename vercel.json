@@ -8,7 +8,6 @@
     ],
     "headers": [
       {
-        "src": "/(.*)",
         "source": "/(.*)",
         "dest": "api/index.js",
         "headers": [
