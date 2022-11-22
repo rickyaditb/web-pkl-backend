@@ -17,7 +17,7 @@ const db = mongoose.connection;
 db.on('error', (error) => console.log(error));
 db.once('open', () => console.log('Database Connected'));
 
-app.use(cors({ credentials:true, origin:'http://web-pkl-frontend-d70ks6en3-rickyaditb.vercel.app' }));
+app.use(cors({ credentials:true, origin:'https://web-pkl-frontend-d70ks6en3-rickyaditb.vercel.app' }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.static('images'));
