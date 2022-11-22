@@ -22,6 +22,6 @@
     {
       "source": "/token",
       "destination": "/api/token"
-    },
+    }
   ]
 }
