@@ -17,7 +17,7 @@ const db = mongoose.connection;
 db.on('error', (error) => console.log(error));
 db.once('open', () => console.log('Database Connected'));
 
-app.use(cors({ credentials:true, origin:'*' }));
+app.use(cors({ credentials:true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.static('images'));
