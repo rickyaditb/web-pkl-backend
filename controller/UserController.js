@@ -135,7 +135,7 @@ export const getUserByPembimbing = async (req, res) => {
         const user = await User.find({
             'role': 'user',
             'pembimbing': req.params.id
-        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing");
+        }).select(['_id', 'email', 'telepon', 'nama', 'asal_instansi', 'role', 'tanggal_mulai', 'tanggal_selesai', 'absensi', 'laporan', 'pembimbing', 'gambar']).populate("pembimbing").sort({"tanggal_selesai": -1});
         const kirim = []
         user.map((item, index) => {
             if(hari_ini > moment(item.tanggal_mulai).startOf('day') && hari_ini < moment(item.tanggal_selesai).endOf('day')) {
